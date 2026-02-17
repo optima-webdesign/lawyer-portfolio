@@ -1,26 +1,76 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* 1. THEME CONFIGURATION 
+   Tailwind v4 mein hum variables ko yahan define karte hain.
+   Isse automatically classes ban jati hain.
+   Example: '--color-gold-500' likhne se 'bg-gold-500', 'text-gold-500' ban jayega.
+*/
+@theme {
+  /* COLORS */
+  --color-gold-500: #d4af37;
+  --color-gold-600: #b08d26;
+
+  --color-bg-main: #f8fafc;
+  --color-bg-card: #ffffff;
+
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-border-light: #e2e8f0;
+
+  /* FONTS */
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif), ui-serif, Georgia, serif;
+  --font-signature: var(--font-signature), cursive;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* 2. BASE STYLES */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-color: var(--color-bg-main);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* Default Serif Headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* 3. CUSTOM UTILITIES */
+@utility font-signature {
+  font-family: var(--font-signature);
+}
+
+/* 4. CUSTOM SCROLLBAR (Standard CSS) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-gold-500);
+  border-radius: 4px;
+  border: 2px solid var(--color-bg-main);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-gold-600);
+}
+
+/* Firefox Support */
+@supports (scrollbar-width: thin) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-gold-500) var(--color-bg-main);
+  }
 }
