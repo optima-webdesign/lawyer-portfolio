@@ -1,7 +1,6 @@
 import { Playfair_Display, Inter, Mr_De_Haviland } from "next/font/google";
 import "./globals.css";
-// ✅ IMPORT CHECK: Ensure these components do NOT import 'layout.js' back
-import LocomotiveScrollWrapper from "@/components/LocomotiveScrollWrapper";
+// ✅ FIX: Hata diya LocomotiveScrollWrapper. GSAP aur Native Scroll best combination hai.
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Cursor from "@/components/Cursor";
@@ -38,9 +37,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    // 'scroll-smooth' native smooth scrolling dega bina kisi library ke
     <html lang="en" className="scroll-smooth">
       <body
-        // ✅ FIX: Updated classes to match your Tailwind v4 Theme
+        // ✅ FIX: overflow-x-hidden theek hai, lekin overflow-hidden body pe NAHI hona chahiye
         className={`${playfair.variable} ${inter.variable} ${signatureFont.variable} antialiased bg-bg-main text-text-primary overflow-x-hidden w-full`}
       >
         <Preloader />
@@ -50,13 +50,12 @@ export default function RootLayout({ children }) {
         {/* Navbar Fixed Top */}
         <Navbar />
 
-        <LocomotiveScrollWrapper>
-          <main className="relative z-10 min-h-screen flex flex-col">
-            {children}
-          </main>
-          {/* Footer Inside Scroll Wrapper for smooth scrolling */}
-          <Footer />
-        </LocomotiveScrollWrapper>
+        {/* ✅ FIX: Direct main tag use kiya, Scroll wrapper ka kachra saaf kiya */}
+        <main className="relative z-10 flex flex-col w-full min-h-screen">
+          {children}
+        </main>
+        
+        <Footer />
       </body>
     </html>
   );

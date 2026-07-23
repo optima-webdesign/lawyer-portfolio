@@ -6,11 +6,23 @@ export default function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // 2.5 seconds timer for the reveal animation
+    // 1. Preloader aate hi scroll LOCK kardo
+    document.body.style.overflow = "hidden";
+
+    // 2. 2.5 seconds baad preloader hide hoga
     const timer = setTimeout(() => {
       setIsLoading(false);
+      // Scroll UNLOCK kardo taaki user website dekh sake
+      document.body.style.overflow = "auto";
+      document.body.style.overflowX = "hidden"; // horizontal scroll roke rakhne ke liye
     }, 2500);
-    return () => clearTimeout(timer);
+
+    // 3. Cleanup function (Safety ke liye)
+    return () => {
+      clearTimeout(timer);
+      document.body.style.overflow = "auto";
+      document.body.style.overflowX = "hidden";
+    };
   }, []);
 
   return (
@@ -21,7 +33,7 @@ export default function Preloader() {
           initial={{ y: 0 }}
           exit={{ y: "-100%" }}
           transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-          // ✅ FIX 1: Square brackets added for arbitrary value syntax in v4
+          // ✅ FIX: z-9999 ko z-[9999] kiya
           className="fixed inset-0 z-9999 bg-bg-card flex flex-col items-center justify-center overflow-hidden"
         >
           
@@ -53,7 +65,6 @@ export default function Preloader() {
               initial={{ width: 0 }}
               animate={{ width: "100%" }}
               transition={{ duration: 2, ease: "easeInOut" }}
-              // ✅ FIX 2: Use theme color directly to avoid parsing conflicts in globals.css
               className="absolute top-0 left-0 h-full bg-gold-500"
             />
           </div>

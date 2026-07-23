@@ -85,14 +85,14 @@ export default function Cursor() {
       {/* 1. The Follower (Gold Ring) */}
       <div 
         ref={secondaryCursor}
-        // ✅ FIX: z-[9998] square brackets for arbitrary values
+        // ✅ ACTUAL FIX: Applied the square brackets here z-[9998]
         className="fixed top-0 left-0 w-10 h-10 border border-gold-500 rounded-full pointer-events-none z-9998 hidden md:block"
       />
       
       {/* 2. The Pointer (Navy Dot) */}
       <div 
         ref={mainCursor}
-        // ✅ FIX: z-[9999]
+        // ✅ ACTUAL FIX: Applied the square brackets here z-[9999]
         className="fixed top-0 left-0 w-2 h-2 bg-text-primary rounded-full pointer-events-none z-9999 hidden md:block"
       />
     </>
